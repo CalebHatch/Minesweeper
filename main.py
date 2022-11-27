@@ -18,6 +18,7 @@ center_frame = Frame(
     height=24
 )
 
+# Places center frame in the center
 center_frame.place(
     x=160,
     y=150,
