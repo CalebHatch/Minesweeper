@@ -19,7 +19,6 @@ I used Python as my programming language and the Tkinter package to aid me in ma
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
 * Make more difficulties (maybe a sliding difficulty bar proprotional to how many squares get displayed)
 * Add custom sounds for when a mine is tripped, when the user selects any square, and when a mine is defused.
 * Make the graphical interface more appealing by adding a custom font for lives left and defusals and custom sprites for the mines and squares.
