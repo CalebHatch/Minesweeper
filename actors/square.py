@@ -6,6 +6,13 @@ import sys
 from actors.player import Player
 
 
+def get_square_with_coords(x, y):
+    # Gets square based on its coordinates
+    for square in Square.all:
+        if square.x == x and square.y == y:
+            return square
+
+
 class Square:
     # These are the squares that can either contain a number giving a clue to how many mines are near or are a mine
     # themselves.
@@ -73,17 +80,11 @@ class Square:
         for mine in mines:
             mine.is_a_mine = True
 
-    def get_square_with_coords(self, x, y):
-        # Gets square based on its coordinates
-        for square in Square.all:
-            if square.x == x and square.y == y:
-                return square
-
     @property
     def bordering_squares(self):
         # Finds bordering squares
         borders = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
-        squares = [self.get_square_with_coords(self.x + dx, self.y + dy) for dx, dy in borders]
+        squares = [get_square_with_coords(self.x + dx, self.y + dy) for dx, dy in borders]
         return [square for square in squares if square is not None]
 
     @property
@@ -108,13 +109,13 @@ class Square:
             self.square_button.configure(bg='#a9a9a9')  # Changes square background color when opened
 
             self.square_opened = True
-        elif self.square_opened == True:
+        elif self.square_opened:
             pass
 
     def reveal_mine(self):
         # Reveals mines and takes a life away from player
-        if self.square_opened == False:
+        if not self.square_opened:
             self.square_button.configure(bg='red')
             self.square_opened = True
-        elif self.square_opened == True:  # Won't do anything if square is already opened
+        elif self.square_opened:  # Won't do anything if square is already opened
             pass
