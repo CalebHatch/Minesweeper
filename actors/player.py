@@ -3,6 +3,7 @@ import settings.settings
 import ctypes
 import sys
 
+
 class Player:
     # Controls all of the aspects of the player, like lives and defusals remaining
     lives = settings.settings.PLAYER_LIVES
@@ -14,9 +15,9 @@ class Player:
         # Makes label for how many player lives are remaining
         label = Label(
             location,
-            bg = '#C4A484',
-            fg = 'black',
-            text = f"Lives Remaining: {Player.lives}",
+            bg='#C4A484',
+            fg='black',
+            text=f"Lives Remaining: {Player.lives}",
             font=('', 24)
         )
 
@@ -24,15 +25,15 @@ class Player:
 
     def make_defusals_label(location):
         # Makes label for how many player defusals are remaining
-            defusals_label = Label(
-                location,
-                bg = '#C4A484',
-                fg = 'black',
-                text = f"Defusals Remaining: {Player.right_clicks}",
-                font=('', 24)
-            )
+        defusals_label = Label(
+            location,
+            bg='#C4A484',
+            fg='black',
+            text=f"Defusals Remaining: {Player.right_clicks}",
+            font=('', 24)
+        )
 
-            Player.defusals_label = defusals_label
+        Player.defusals_label = defusals_label
 
     def update_lives():
         # Updates how many lives the player has left
@@ -57,8 +58,3 @@ class Player:
 
         if Player.right_clicks <= 0:
             ctypes.windll.user32.MessageBoxW(0, 'Out of defusals', 'Can Not Defuse', 0)
-
-
-
-
-

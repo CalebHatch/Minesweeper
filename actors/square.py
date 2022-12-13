@@ -10,11 +10,11 @@ class Square:
     # These are the squares that can either contain a number giving a clue to how many mines are near or are a mine
     # themselves.
     square_defused = False
-    square_amount = (Difficulty.square_board_total - Difficulty.mine_total) # Amount of squares minus mines
+    square_amount = (Difficulty.square_board_total - Difficulty.mine_total)  # Amount of squares minus mines
 
     all = []
 
-    def __init__(self, x, y, is_a_mine = False):
+    def __init__(self, x, y, is_a_mine=False):
         # Initializes properties for squares
         self.is_a_mine = is_a_mine
         self.square_button = None
@@ -35,24 +35,24 @@ class Square:
         )
 
         button.bind('<Button-1>', self.left_click)  # Takes left click input for button
-        button.bind('<Button-3>', self.right_click) # Takes right click input for button
+        button.bind('<Button-3>', self.right_click)  # Takes right click input for button
 
         self.square_button = button
 
     def right_click(self, event):
         # Handles what happens when player right clicks. Player right clicks to defuse mines
-        if self.square_opened == False:
+        if not self.square_opened:
             Player.update_defusals()
         if self.is_a_mine and Player.right_clicks > 0:
-                self.square_button.configure(text='X', fg='black')
-                self.square_defused = True
-                self.square_opened = True
-                if self.square_opened == False:
-                    self.square_amount -= 1
+            self.square_button.configure(text='X', fg='black')
+            self.square_defused = True
+            self.square_opened = True
+            if not self.square_opened:
+                self.square_amount -= 1
         else:
             pass
 
-    def left_click (self, event):
+    def left_click(self, event):
         # Handles what happens when player left clicks. Player left clicks to select squares/mines
         if self.is_a_mine and self.square_defused is False:
             Player.update_lives()
@@ -65,7 +65,7 @@ class Square:
             quit()
 
     def rng_mines():
-    # Selects 16 random squares to be mines
+        # Selects 16 random squares to be mines
         mines = random.sample(
             Square.all, Difficulty.mine_total
         )
@@ -82,20 +82,9 @@ class Square:
     @property
     def bordering_squares(self):
         # Finds bordering squares
-        squares = (
-            self.get_square_with_coords(self.x - 1 , self.y - 1),
-            self.get_square_with_coords(self.x - 1, self.y + 1),
-            self.get_square_with_coords(self.x + 1, self.y - 1),
-            self.get_square_with_coords(self.x + 1, self.y + 1),
-            self.get_square_with_coords(self.x, self.y + 1),
-            self.get_square_with_coords(self.x - 1, self.y),
-            self.get_square_with_coords(self.x, self.y - 1),
-            self.get_square_with_coords(self.x + 1, self.y)
-        )
-
-        squares = (square for square in squares if square is not None)
-
-        return squares
+        borders = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)]
+        squares = [self.get_square_with_coords(self.x + dx, self.y + dy) for dx, dy in borders]
+        return [square for square in squares if square is not None]
 
     @property
     def find_mines(self):
@@ -129,4 +118,3 @@ class Square:
             self.square_opened = True
         elif self.square_opened == True:  # Won't do anything if square is already opened
             pass
-
