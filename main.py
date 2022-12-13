@@ -30,7 +30,7 @@ top_left_frame = Frame(
     bg='#C4A484',
     width=800,
     height=120
-    )
+)
 
 # Place top frame in top left corner
 top_left_frame.place(
@@ -40,7 +40,8 @@ top_left_frame.place(
 
 # Generates all squares
 for x in range(Difficulty.square_total_x):
-    for y in range(Difficulty.square_total_y):  # Multiplies the x and y for the square amounts defined in the difficulty class
+    for y in range(
+            Difficulty.square_total_y):  # Multiplies the x and y for the square amounts defined in the difficulty class
         square = Square(x, y)
         square.make_button(center_frame)
         square.square_button.grid(
@@ -50,15 +51,15 @@ for x in range(Difficulty.square_total_x):
 # Displays player lives label
 Player.make_player_lives_label(top_left_frame)
 Player.player_lives_label.place(
-    x = 0,
-    y = 0
+    x=0,
+    y=0
 )
 
 # Displays player defusals label
 Player.make_defusals_label(top_left_frame)
 Player.defusals_label.place(
-    x = 0,
-    y = 40
+    x=0,
+    y=40
 )
 
 Square.rng_mines()
